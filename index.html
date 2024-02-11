@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DONATION</title>
+</head>
+<body>
+    <h1>DONATION</h1>
+    <p>Help us celebrate Saraswati Puja by making a donation.</p>
+
+    <form id="donationForm">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <br>
+        <label for="mobile">Your Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile" placeholder="Your Mobile Number" required>
+        <br>
+        <label for="amount">Choose or Enter Donation Amount:</label>
+        <select id="amount" name="amount">
+            <option value="101">₹101</option>
+            <option value="151">₹151</option>
+            <option value="251" selected>₹251 (Default)</option>
+            <option value="551">₹551</option>
+            <option value="1051">₹1051</option>
+            <option value="custom">Custom Amount</option>
+        </select>
+        <br>
+        <div id="customAmountContainer" style="display:none;">
+            <label for="customAmount">Enter custom amount:</label>
+            <input type="number" id="customAmount" name="customAmount" placeholder="Enter amount">
+            <br>
+        </div>
+        <button type="button" onclick="submitForm()">Proceed to Pay</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            var donorName = document.getElementById("name").value;
+            var donorMobile = document.getElementById("mobile").value;
+            var selectedAmount = document.getElementById("amount").value;
+            var customAmount = document.getElementById("customAmount").value;
+
+            // Validate inputs (add more validation as needed)
+            if (!donorMobile) {
+                alert("Please enter your mobile number for payment.");
+                return;
+            }
+
+            var finalAmount = (selectedAmount === "custom") ? customAmount : selectedAmount;
+
+            // Generate a payment QR code (hypothetical function)
+            var paymentQRCode = generateQRCode(finalAmount, 'aqvyom@upi', donorName, donorMobile);
+
+            // Send an SMS with the payment details (hypothetical function)
+            sendPaymentSMS(donorMobile, paymentQRCode);
+
+            // Additional logic or redirection can be added here
+        }
+
+        function generateQRCode(amount, upiId, name, mobile) {
+            // This is a hypothetical function to generate a QR code.
+            // Replace this with the actual implementation using a QR code generation library.
+            return `UPI:${upiId}?amount=${amount}&name=${name}&pa=${upiId}&mc=${mobile}&tid=123456&tr=1234567890`;
+        }
+
+        function sendPaymentSMS(mobile, message) {
+            // This is a hypothetical function to send an SMS.
+            // Replace this with the actual implementation using an SMS service or API.
+            alert(`Payment details sent to ${mobile} via SMS:\n${message}`);
+        }
+    </script>
+</body>
+</html>
